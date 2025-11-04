@@ -1,0 +1,9 @@
+{
+  "sensors": [
+    {
+      "class": "DeboTempSensor",
+      "name": "debo_temp_1",
+      "bucket": "sensordata"
+    }
+  ]
+}
