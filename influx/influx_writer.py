@@ -1,6 +1,9 @@
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Lädt Umgebungsvariablen aus .env
 
 class InfluxWriter:
     def __init__(self):
