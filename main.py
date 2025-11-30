@@ -3,7 +3,8 @@ import time
 import signal
 import sys
 from sensors.temperature_sensor import DeboTempSensor
-from influx.influx_writer import InfluxWriter
+#from influx.influx_writer import InfluxWriter
+from common.data_connector.connector_manager import ConnectorManager
 
 def load_sensors():
     with open("config.json") as f:
@@ -23,13 +24,15 @@ def handle_sigint(sig, frame):
 def main():
     signal.signal(signal.SIGINT, handle_sigint)
     sensors = load_sensors()
-    influx = InfluxWriter()
+    #influx = InfluxWriter()
+    connector_manager = ConnectorManager()
 
     while True:
         for sensor in sensors:
             data = sensor.read()
             print(f"{data['sensor']} → {data['value']}°C → {sensor.bucket}")
-            influx.write(sensor.bucket, data)
+            #influx.write(sensor.bucket, data)
+            connector_manager.set("temperature", data)
         time.sleep(10)
 
 if __name__ == "__main__":
