@@ -1,5 +1,7 @@
 import json
 import time
+import signal
+import sys
 from sensors.temperature_sensor import DeboTempSensor
 from influx.influx_writer import InfluxWriter
 
@@ -13,7 +15,13 @@ def load_sensors():
         # Weitere Sensoren hier ergänzen
     return sensors
 
+def handle_sigint(sig, frame):
+    print("\n🛑 Beende sensor data collection...")
+    sys.exit(0)
+
+
 def main():
+    signal.signal(signal.SIGINT, handle_sigint)
     sensors = load_sensors()
     influx = InfluxWriter()
 
