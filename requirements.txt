@@ -1,3 +1,5 @@
 influxdb-client
 python-dotenv
 mysql-connector-python
+numpy
+pandas
